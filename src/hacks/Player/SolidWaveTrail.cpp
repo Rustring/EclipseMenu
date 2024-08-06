@@ -7,7 +7,7 @@
 
 namespace eclipse::hacks::Player {
 
-    class Solid Wave Trail : public hack::Hack {
+    class SolidWaveTrail : public hack::Hack {
         void init() override {
             auto tab = gui::MenuTab::find("Player");
             tab->addToggle("Solid Wave Trail", "player.solidwavetrail")
