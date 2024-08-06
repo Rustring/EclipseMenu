@@ -7,7 +7,7 @@
 
 namespace eclipse::hacks::Player {
 
-    class NoDeathEffect : public hack::Hack {
+    class SolidWaveTrail : public hack::Hack {
     public:
         void init() override {
             auto tab = gui::MenuTab::find("Player");
