@@ -8,6 +8,7 @@
 namespace eclipse::hacks::Player {
 
     class NoDeathEffect : public hack::Hack {
+    public:
         void init() override {
             auto tab = gui::MenuTab::find("Player");
             tab->addToggle("Solid Wave Trail", "player.solidwavetrail")
@@ -16,14 +17,21 @@ namespace eclipse::hacks::Player {
         }
 
         [[nodiscard]] const char* getId() const override { return "Solid Wave Trail"; }
-    }
+    }; // End of class NoDeathEffect
 
-class $modify(CCDrawNode) {
-    bool drawPolygon(CCPoint *p0, unsigned int p1, const ccColor4F &p2, float p3, const ccColor4F &p4) {
-        if (!Hacks::isHackEnabled("Solid Wave Trail")) return CCDrawNode::drawPolygon(p0,p1,p2,p3,p4);
-        if (p2.r == 1.F && p2.g == 1.F && p2.b == 1.F && p2.a != 1.F) return true; // tried doing just p2.a != 1.F but uh
-        this->setBlendFunc(CCSprite::create()->getBlendFunc());
-        this->setZOrder(-1); // ok but why
-        return CCDrawNode::drawPolygon(p0,p1,p2,p3,p4);
-    }
-};
+    class $modify(CCDrawNode) {
+    public:
+        bool drawPolygon(CCPoint *p0, unsigned int p1, const ccColor4F &p2, float p3, const ccColor4F &p4) {
+            if (!Hacks::isHackEnabled("Solid Wave Trail")) {
+                return CCDrawNode::drawPolygon(p0, p1, p2, p3, p4);
+            }
+            if (std::abs(p2.r - 1.0f) < 0.01f && std::abs(p2.g - 1.0f) < 0.01f && std::abs(p2.b - 1.0f) < 0.01f && p2.a != 1.0f) {
+                return true;
+            }
+            this->setBlendFunc(CCSprite::create()->getBlendFunc());
+            this->setZOrder(-1); // Ensure this is needed or adjust as necessary
+            return CCDrawNode::drawPolygon(p0, p1, p2, p3, p4);
+        }
+    };
+
+} 
