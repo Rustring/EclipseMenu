@@ -16,9 +16,7 @@ namespace eclipse::hacks::Player {
         }
 
         [[nodiscard]] const char* getId() const override { return "Solid Wave Trail"; }
-    };
-
-    REGISTER_HACK(SolidWaveTrail)
+    }
 
 class $modify(CCDrawNode) {
     bool drawPolygon(CCPoint *p0, unsigned int p1, const ccColor4F &p2, float p3, const ccColor4F &p4) {
