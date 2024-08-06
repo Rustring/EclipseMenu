@@ -76,7 +76,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: dev
+          tag_name: dev-modified
           name: 'Development Release With Code Changes'
           body: |
             This is a dev build of the mod for commit ${{ github.sha }} (${{ github.event.head_commit.message }}).
