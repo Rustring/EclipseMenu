@@ -27,7 +27,6 @@ namespace eclipse::hacks::Player {
              return CCDrawNode::drawPolygon(p0,p1,p2,p3,p4);
            if (p2.r == 1.F && p2.g == 1.F && p2.b == 1.F && p2.a != 1.F) 
              return true; 
-           this->setBlendFunc(CCSprite::create()->getBlendFunc());
            this->setZOrder(-1); 
            return CCDrawNode::drawPolygon(p0,p1,p2,p3,p4);
        }
