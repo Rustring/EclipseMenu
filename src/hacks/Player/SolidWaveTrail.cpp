@@ -22,7 +22,7 @@ namespace eclipse::hacks::Player {
     REGISTER_HACK(SolidWaveTrail)
 
    class $modify(cocos2d::CCDrawNode) {    // Yes this is copied from Prism Menu I'm stupid to write it myself
-       bool drawPolygon(cocos2d::CCPoint *p0, unsigned int p1, const ccColor4F &p2, float p3, const cocos2d::ccColor4F &p4) {
+       bool drawPolygon(cocos2d::CCPoint *p0, unsigned int p1, const cocos2d::ccColor4F &p2, float p3, const cocos2d::ccColor4F &p4) {
            if (!config::get<bool>("player.solidwavetrail", true))
              return CCDrawNode::drawPolygon(p0,p1,p2,p3,p4);
            if (p2.r == 1.F && p2.g == 1.F && p2.b == 1.F && p2.a != 1.F) 
