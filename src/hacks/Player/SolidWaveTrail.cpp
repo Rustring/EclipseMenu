@@ -22,7 +22,7 @@ namespace eclipse::hacks::Player {
 
    REGISTER_HACK(SolidWaveTrail)
 
-   class SolidWaveTrailCCDNHook $modify(SolidWaveTrailCCDNHook) {    // The actual hack code
+   class $modify(SolidWaveTrailCCDNHook) SolidWaveTrailCCDNHook {    // The actual hack code
        bool drawPolygon(cocos2d::CCPoint *p0, unsigned int p1, const cocos2d::ccColor4F &p2, float p3, const cocos2d::ccColor4F &p4) {
            if (!config::get<bool>("player.solidwavetrail", true))
              return CCDrawNode::drawPolygon(p0,p1,p2,p3,p4);
