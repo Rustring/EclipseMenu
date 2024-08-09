@@ -2,17 +2,19 @@
 #include <modules/hack/hack.hpp>
 #include <modules/config/config.hpp>
 
-#include <Geode/modify/PlayerObject.hpp>
-#include <Geode/modify/CCDrawNode.hpp>
+#include <Geode/Geode.hpp>
 #include <Geode/modify/HardStreak.hpp>
+#include <Geode/modify/CCKeyboardDispatcher.hpp>
+
+using namespace geode::prelude;
 
 namespace eclipse::hacks::Player {
 
-    class NoWavePulse : public hack::Hack {
+    class NoWavePulse : public hack::Hack {   /// Hack name and description
         void init() override {
             auto tab = gui::MenuTab::find("Player");
             tab->addToggle("No Wave Pulse", "player.nowavepulse")
-                ->setDescription("Removes the wave trail pulse")
+                ->setDescription("Removes the wave trail pulsing effect")
                 ->handleKeybinds();
         }
 
@@ -21,9 +23,8 @@ namespace eclipse::hacks::Player {
 
     REGISTER_HACK(NoWavePulse)
 
-   class $modify(HardStreak) {    // Yes this is copied from Prism Menu I'm stupid to write it myself
+   class $modify(HardStreak) {    // The actual code
        void updateStroke(float dt) {
-           //log::info("HardStreak\n---\nm_waveSize = {}\nm_pulseSize = {}\nm_isSolid = {}", m_waveSize, m_pulseSize, m_isSolid);
            if (!config::get<bool>("player.nowavepulse", true)) {
                m_pulseSize = 1.24F;
            }
