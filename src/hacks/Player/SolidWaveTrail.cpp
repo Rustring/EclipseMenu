@@ -3,9 +3,10 @@
 #include <modules/config/config.hpp>
 
 #include <Geode/Geode.hpp>
-#include <Geode/modify/PlayerObject.hpp>
 #include <Geode/modify/CCDrawNode.hpp>
 #include <Geode/modify/HardStreak.hpp>
+
+using namespace geode::prelude;
 
 namespace eclipse::hacks::Player {
 
@@ -47,3 +48,4 @@ namespace eclipse::hacks::Player {
        }
    };
 
+}
