@@ -2,13 +2,14 @@
 #include <modules/hack/hack.hpp>
 #include <modules/config/config.hpp>
 
+#include <Geode/Geode.hpp>
 #include <Geode/modify/PlayerObject.hpp>
 #include <Geode/modify/CCDrawNode.hpp>
 #include <Geode/modify/HardStreak.hpp>
 
 namespace eclipse::hacks::Player {
 
-    class SolidWaveTrail : public hack::Hack {
+    class SolidWaveTrail : public hack::Hack {    // Hack name and desciption
         void init() override {
             auto tab = gui::MenuTab::find("Player");
             tab->addToggle("Solid Wave Trail", "player.solidwavetrail")
@@ -19,17 +20,30 @@ namespace eclipse::hacks::Player {
         [[nodiscard]] const char* getId() const override { return "Solid Wave Trail"; }
     };
 
-    REGISTER_HACK(SolidWaveTrail)
+   REGISTER_HACK(SolidWaveTrail)
 
-   class $modify(cocos2d::CCDrawNode) {    // This code is somewhat broken but this right now, this gives the wave trail a darker color.
-       bool drawPolygon(cocos2d::CCPoint *p0, unsigned int p1, const cocos2d::ccColor4F &p2, float p3, const cocos2d::ccColor4F &p4) {
+
+   class $modify(cocos2d::CCDrawNode) {    // The actual code behind the hack
+       
+        bool drawPolygon(CCPoint *verts, unsigned int count, const ccColor4F &fillColor, float borderWidth, const ccColor4F &borderColor)    
+       
            if (!config::get<bool>("player.solidwavetrail", true))
-             return CCDrawNode::drawPolygon(p0,p1,p2,p3,p4);
-           if (p2.r == 1.F && p2.g == 1.F && p2.b == 1.F && p2.a != 1.F) 
-             return true; 
-           this->setZOrder(-1); 
-           return CCDrawNode::drawPolygon(p0,p1,p2,p3,p4);
-       }
+            {
+                if (fillColor.r >= 1.0f && fillColor.g >= 1.0f && fillColor.b >= 1.0f && this->getColor() != ccc3(255, 255, 255))
+                    return true;
+
+                if (this->getTag() != 1)
+                {
+                    this->setTag(1);
+                    this->setBlendFunc(CCSprite::create()->getBlendFunc());
+                }
+
+                this->setZOrder(-1);
+            }
+        }
+
+        return CCDrawNode::drawPolygon(verts, count, fillColor, borderWidth, borderColor);
+     }
    };
 
 }
